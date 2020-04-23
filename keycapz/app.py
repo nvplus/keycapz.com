@@ -1,8 +1,5 @@
-from flask import Flask
-from flask import g
+from flask import Flask, g
 import sqlite3
-
-
 
 DATABASE = '/path/to/database.db'
 
