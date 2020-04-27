@@ -1,0 +1,23 @@
+.kkz-header-img {
+    height: 50px;
+    margin-left: 120px;
+    margin-top: 50px;
+}
+
+.kkz-keysets-container {
+    display: flex;
+    padding: 0px 100px 100px 100px;
+}
+.kkz-keyset {
+    padding: 20px 20px 20px 20px;
+    width: 400px;
+    height: 400px;
+}
+
+.kkz-keyset .keyset-name {
+    margin: 0;
+}
+.kkz-keyset > img {
+    width: auto;
+    height: 200px;
+}
