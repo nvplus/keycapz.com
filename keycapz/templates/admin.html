@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Admin</title>
+    </head>
+
+    <body>
+        <a href="{{ url_for('index') }}"><button>Back</button></a>
+        <h1>Admin Page</h1>
+
+        <div id="kkz-add-form">
+            <form action="/add" method="POST">
+                <p>Keyset Name: </p><input type="text" name="k_name" required><br>
+                <p>Image URL: </p><input type="text" name="k_img_url"><br>
+                <p>Website Link: </p><input type="text" name="k_website_link" required><br>
+                <p>Start Date: </p><input type="date" name="k_start_date" required><br>
+                <p>End Date: </p><input type="date" name="k_end_date" required><br>
+                <input type="submit">
+            </form>
+        </div>
+    </body>
+</html>

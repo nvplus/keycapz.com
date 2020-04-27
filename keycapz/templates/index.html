@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>keycapz.com</title>
+    </head>
+
+    <body>
+        <a href="{{ url_for('admin') }}"><button>Admin Page</button></a>
+
+        {% if keysets != None %}
+        {% for keyset in keysets %}
+            <div class="kkz-keyset">
+                <h3>{{ keyset.name }}</h3>
+                <img src="{{ keyset.image_url }}">
+            </div>
+        {%endfor%}
+        {% endif %}
+    </body>
+</html>
