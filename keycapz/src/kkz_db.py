@@ -27,24 +27,26 @@ def _do_query(query:str, args = (), one=False):
                for idx, value in enumerate(row)) for row in cur.fetchall()]
     return (rv[0] if rv else None) if one else rv
 
-def _do_query_commit(query: str):
-    cur = g.db.execute(query)
+def _do_query_commit(query: str, args = ()):
+    cur = g.db.execute(query, args)
     g.db.commit()
 
 def add_keyset(name:str, img_url:str, website_link:str, start_date:str, end_date:str):
-    q =  'INSERT INTO kkz_keysets (name, image_url, start_date, end_date, website_url) VALUES("{}", "{}", "{}", "{}", "{}");'.format(name, img_url, start_date, end_date, website_link)
-    _do_query_commit(q)
+    args = 'name, img_url, start_date, end_date, website_link'
+    q =  'INSERT INTO kkz_keysets (name, image_url, start_date, end_date, website_url) VALUES("{}", "{}", "{}", "{}", "{}");'
+    _do_query_commit(q, args)
     
 def add_keyset(request):
     r = request.json
-    q =  'INSERT INTO kkz_keysets (name, image_url, start_date, end_date, website_url) VALUES("{}", "{}", "{}", "{}", "{}");'.format(r.get('k_name'), r.get('k_img_url'), r.get('k_start_date'), r.get('k_end_date'), r.get('k_website_link'))
+    args = r.get('k_name'), r.get('k_img_url'), r.get('k_start_date'), r.get('k_end_date'), r.get('k_website_link')
+    q =  'INSERT INTO kkz_keysets (name, image_url, start_date, end_date, website_url) VALUES("%s", "%s", "%s", "%s", "%s");'
     _do_query_commit(q)
 
 def get_all_keysets():
     return _do_query("SELECT * FROM kkz_keysets ORDER BY end_date DESC")
 
 def search_keyset_by_name(term):
-    return _do_query("SELECT * FROM kk_keysets WHERE name LIKE {}".format(term))
+    return _do_query("SELECT * FROM kkz_keysets WHERE name LIKE %s", term)
 
 def delete_keyset_by_id(id):
     q = 'DELETE FROM kkz_keysets WHERE id={}'.format(id)

@@ -4,3 +4,4 @@ keycapz/__pycache__
 keycapz/src/__pycache__
 keycapz/db
 *.pyc
+*.pyc
