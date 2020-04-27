@@ -49,5 +49,5 @@ def search_keyset_by_name(term):
     return _do_query("SELECT * FROM kkz_keysets WHERE name LIKE %s", term)
 
 def delete_keyset_by_id(id):
-    q = 'DELETE FROM kkz_keysets WHERE id={}'.format(id)
-    return _do_query_commit(q)
+    q = 'DELETE FROM kkz_keysets WHERE id=%s'
+    return _do_query_commit(q, %s)
