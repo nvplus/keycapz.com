@@ -32,8 +32,8 @@ def _do_query_commit(query: str, args = ()):
     g.db.commit()
 
 def add_keyset(name:str, img_url:str, website_link:str, start_date:str, end_date:str):
-    args = 'name, img_url, start_date, end_date, website_link'
-    q =  'INSERT INTO kkz_keysets (name, image_url, start_date, end_date, website_url) VALUES("{}", "{}", "{}", "{}", "{}");'
+    args = name, img_url, start_date, end_date, website_link
+    q =  'INSERT INTO kkz_keysets (name, image_url, start_date, end_date, website_url) VALUES("%s", "%s", "%s", "%s", "%s");'
     _do_query_commit(q, args)
     
 def add_keyset(request):
