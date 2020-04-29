@@ -27,7 +27,7 @@ def index():
 def admin():
     return render_template('admin.html')
 
-@app.route('/admin-add', methods=['POST'])
+@app.route('/admin-add', methods=["POST"])
 def admin_add():
     kkz_db.add_keyset(request.form['k_name'], request.form['k_img_url'], request.form['k_website_link'], request.form['k_start_date'], request.form['k_end_date'])
 
@@ -36,15 +36,9 @@ def admin_add():
 """
 HTTP Endpoints
 """
-@app.route('/get-all', methods=["GET"])
-def show_all():
-    return jsonify(kkz_db.get_all_keysets())
 
-@app.route('/search', methods=["GET"])
-def search():
-    return jsonify(kkz_db.search(request.json['k_name']))
-
-@app.route('/add-set', methods=["POST"])
+# Create methods
+@app.route('/keysets/add/', methods=["POST"])
 def add_set():
     """
     Accepts POST requests in the following format:
@@ -55,5 +49,47 @@ def add_set():
 	"k_website_link": "url"
     """
 
-    kkz_db.add_keyset(request)
-    return 'Keyset added:\n' + str(request.json)
+    result = kkz_db.add_keyset(request)
+    return jsonify(result) if result else "Could not add the keyset."
+
+# Retrieve methods
+@app.route('/keysets/', methods=["GET"])
+def keysets():
+    result = kkz_db.get_all_keysets() 
+    return jsonify(result) if result != None else "no keysounds found"
+
+@app.route('/keysets/<int:keyset_id>', methods=["GET"])
+def get_keyset(keyset_id):
+    result = kkz_db.get_keyset(keyset_id)
+    return result if result != None else "No keyset found with id {}".format(keyset_id) 
+
+@app.route('/search', methods=["GET"])
+def search():   
+    return jsonify(kkz_db.search(request.json['k_name']))
+
+# Update methods -- Todo: Make these not doodoo
+@app.route('/keysets/update/<int:keyset_id>/name/<string:name>', methods=["PUT"])
+def update_name(name):
+    pass
+
+@app.route('/keysets/update/<int:keyset_id>/img/<string:image>', methods=["PUT"])
+def update_img(image):
+    pass
+
+@app.route('/keysets/update/<int:keyset_id>/start/<string:start>', methods=["PUT"])
+def update_start_date(start):
+    pass
+
+@app.route('/keysets/update/<int:keyset_id>/end/<string:end>', methods=["PUT"])
+def update_end_date(end):
+    pass
+
+@app.route('/keysets/update/<int:keyset_id>/website/<string:website>', methods=["PUT"])
+def update_website_link(website):
+    pass
+
+# Delete methods
+@app.route('/keysets/delete/<int:keyset_id>', methods=["DELETE"])
+def delete(keyset_id):
+    deleted = kkz_db.delete(keyset_id)
+    return "Successfully deleted keyset with id {}".format(keyset_id) if deleted else "could not delete keyset with id {}".format(keyset_id)
