@@ -63,9 +63,9 @@ def get_keyset(keyset_id):
     result = kkz_db.get_keyset(keyset_id)
     return result if result != None else "No keyset found with id {}".format(keyset_id) 
 
-@app.route('/search', methods=["GET"])
-def search():   
-    return jsonify(kkz_db.search(request.json['k_name']))
+@app.route('/search/<string:name>', methods=["GET"])
+def search(name):   
+    return jsonify(kkz_db.search(name))
 
 # Update methods -- Todo: Make these not doodoo
 @app.route('/keysets/update/<int:keyset_id>/name/<string:name>', methods=["PUT"])
