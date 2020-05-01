@@ -1,6 +1,6 @@
 .vscode/
 venv/
-keycapz/__pycache__
-keycapz/src/__pycache__
-keycapz/db
+keycapz_backend/__pycache__
+keycapz_backend/src/__pycache__
+keycapz_backend/db
 *.pyc
